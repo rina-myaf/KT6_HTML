@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.layout {
+  display: grid;
+  height: 100vh;
+
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: auto 1fr auto;
+
+  grid-template-areas:
+    "nav header header"
+    "nav article ads"
+    "nav footer footer";
+
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+nav {
+  grid-area: nav;
+}
+
+header {
+  grid-area: header;
+}
+
+article {
+  grid-area: article;
+}
+
+aside {
+  grid-area: ads;
+}
+
+footer {
+  grid-area: footer;
+}
+
+.layout > * {
+  background: gold;
+  padding: 20px;
+  border: 2px solid white;
+}
