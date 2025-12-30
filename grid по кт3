@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows 8 Metro UI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1d1d1d;
+      color: #fff;
+      overflow-x: auto;
+    }
+
+    body {
+      display: flex;
+      min-width: 1200px;
+    }
+
+    .metro-grid {
+      display: grid;
+      width: 100%;
+      min-height: 100vh;
+      grid-template-columns: repeat(6, 160px);
+      grid-auto-rows: 160px;
+      gap: 10px;
+      grid-auto-flow: dense;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #1d1d1d;
+    }
+
+    .metro-tile {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .metro-tile:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .metro-tile:active {
+      transform: scale(0.98);
+    }
+
+    .tile-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+
+    .tile-label {
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .tile-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #e81123;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .tile-small {
+      grid-column: span 1;
+      grid-row: span 1;
+      width: 160px;
+      height: 160px;
+    }
+
+    .tile-medium {
+      grid-column: span 2;
+      grid-row: span 1;
+      width: 330px;
+      height: 160px;
+    }
+
+    .tile-wide {
+      grid-column: span 3;
+      grid-row: span 1;
+      width: 500px;
+      height: 160px;
+    }
+
+    .tile-large {
+      grid-column: span 2;
+      grid-row: span 2;
+      width: 330px;
+      height: 330px;
+    }
+
+    .tile-extra-large {
+      grid-column: span 4;
+      grid-row: span 2;
+      width: 670px;
+      height: 330px;
+    }
+
+    /* Цвета плиток как в Windows 8 */
+    .tile-blue { background-color: #0078d7; }
+    .tile-green { background-color: #107c10; }
+    .tile-red { background-color: #e81123; }
+    .tile-purple { background-color: #8661c5; }
+    .tile-orange { background-color: #ff8c00; }
+    .tile-teal { background-color: #008272; }
+    .tile-magenta { background-color: #b4009e; }
+    .tile-dark-blue { background-color: #005a9e; }
+    .tile-dark-green { background-color: #0a5c0a; }
+    .tile-dark-red { background-color: #a80000; }
+    .tile-dark-purple { background-color: #5c2d91; }
+    .tile-yellow { background-color: #ffb900; }
+    .live-tile {
+      background: linear-gradient(135deg, #0078d7 0%, #005a9e 100%);
+    }
+
+    .app-group {
+      position: relative;
+    }
+
+    .app-group::before {
+      content: attr(data-group-name);
+      position: absolute;
+      top: -25px;
+      left: 0;
+      font-size: 12px;
+      color: #888;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .start-screen {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .user-tile {
+      grid-column: span 2;
+      grid-row: span 1;
+      background: linear-gradient(135deg, #4c4c4c 0%, #2d2d2d 100%);
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 15px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      background-color: #0078d7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 20px;
+    }
+
+    .user-name {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .search-tile {
+      background-color: #333;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 15px;
+    }
+
+    .search-icon {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #888;
+    }
+
+    .search-input {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: #888;
+    }
+    .info-tile {
+      background: linear-gradient(135deg, #666 0%, #444 100%);
+      justify-content: flex-start;
+      align-items: flex-start;
+      text-align: left;
+      padding: 20px;
+    }
+
+    .info-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .info-content {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 1400px) {
+      .metro-grid {
+        min-width: 1200px;
+      }
+    }
+
+    @keyframes tilePulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    .live-update {
+      animation: tilePulse 2s infinite;
+    }
+
+    .datetime-tile {
+      background: linear-gradient(135deg, #333 0%, #222 100%);
+    }
+
+    .time {
+      font-size: 28px;
+      font-weight: 300;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="metro-grid">
+    <div class="metro-tile tile-medium user-tile">
+      <div class="user-info">
+        <div class="user-avatar">AS</div>
+        <div>
+          <div class="user-name">Алексей Сидоров</div>
+          <div class="tile-label">Администратор</div>
+        </div>
+      </div>
+    </div>
+    <div class="metro-tile tile-medium search-tile">
+      <div class="search-icon">🔍</div>
+      <input type="text" class="search-input" placeholder="Поиск приложений, настроек и файлов">
+    </div>
+    <div class="metro-tile tile-large tile-blue">
+      <div class="tile-icon">🖥️</div>
+      <div class="tile-label">Рабочий стол</div>
+    </div>
+    <div class="metro-tile tile-small tile-green">
+      <div class="tile-icon">📁</div>
+      <div class="tile-label">Проводник</div>
+    </div>
+    <div class="metro-tile tile-wide tile-purple">
+      <div class="tile-icon">🛒</div>
+      <div class="tile-label">Microsoft Store</div>
+      <div class="tile-badge">3</div>
+    </div>
+    <div class="metro-tile tile-small tile-blue">
+      <div class="tile-icon">🌐</div>
+      <div class="tile-label">Internet Explorer</div>
+    </div>
+    <div class="metro-tile tile-extra-large tile-dark-blue">
+      <div class="tile-icon">⚙️</div>
+      <div class="tile-label">Панель управления</div>
+      <div class="info-content">Управление системными настройками, учетными записями и оборудованием</div>
+    </div>
+    <div class="metro-tile tile-medium tile-red">
+      <div class="tile-icon">📧</div>
+      <div class="tile-label">Почта</div>
+      <div class="tile-badge">12</div>
+    </div>
+    <div class="metro-tile tile-small tile-teal">
+      <div class="tile-icon">📅</div>
+      <div class="tile-label">Календарь</div>
+    </div>
+    <div class="metro-tile tile-large tile-magenta">
+      <div class="tile-icon">🎵</div>
+      <div class="tile-label">Музыка</div>
+      <div class="info-content">Groove Music</div>
+    </div>
+    <div class="metro-tile tile-small tile-orange">
+      <div class="tile-icon">🎬</div>
+      <div class="tile-label">Видео</div>
+    </div>
+    <div class="metro-tile tile-medium tile-green live-tile live-update">
+      <div class="tile-icon">📰</div>
+      <div class="tile-label">Новости</div>
+    </div>
+    <div class="metro-tile tile-small tile-teal live-update">
+      <div class="tile-icon">☀️</div>
+      <div class="tile-label">Погода</div>
+    </div>
+    <div class="metro-tile tile-wide tile-dark-green">
+      <div class="tile-icon">🗺️</div>
+      <div class="tile-label">Карты</div>
+    </div>
+    <div class="metro-tile tile-medium datetime-tile">
+      <div class="time" id="currentTime">15:30</div>
+      <div class="date" id="currentDate">30 декабря 2025</div>
+    </div>
+    <div class="metro-tile tile-small tile-blue">
+      <div class="tile-icon">☁️</div>
+      <div class="tile-label">OneDrive</div>
+    </div>
+    <div class="metro-tile tile-large tile-purple">
+      <div class="tile-icon">📸</div>
+      <div class="tile-label">Фотографии</div>
+    </div>
+    <div class="metro-tile tile-medium tile-dark-red">
+      <div class="tile-icon">🎮</div>
+      <div class="tile-label">Игры</div>
+      <div class="tile-badge">!</div>
+    </div>
+    <div class="metro-tile tile-small tile-yellow">
+      <div class="tile-icon">👥</div>
+      <div class="tile-label">Люди</div>
+    </div>
+    <div class="metro-tile tile-medium tile-dark-blue">
+      <div class="tile-icon">📊</div>
+      <div class="tile-label">Microsoft Office</div>
+    </div>
+    <div class="metro-tile tile-wide info-tile">
+      <div class="info-title">Системная информация</div>
+      <div class="info-content">
+        Windows 8.1 Pro<br>
+        Процессор: Intel Core i7-8700<br>
+        Память: 16.0 ГБ<br>
+        Видеокарта: NVIDIA GeForce RTX 3060
+      </div>
+    </div>
+    <div class="metro-tile tile-small tile-blue">
+      <div class="tile-icon">💬</div>
+      <div class="tile-label">Skype</div>
+    </div>
+    <div class="metro-tile tile-small tile-green">
+      <div class="tile-icon">📝</div>
+      <div class="tile-label">Заметки</div>
+    </div>
+    <div class="metro-tile tile-medium tile-dark-green">
+      <div class="tile-icon">🎯</div>
+      <div class="tile-label">Xbox</div>
+    </div>
+    <div class="metro-tile tile-small tile-red">
+      <div class="tile-icon">❓</div>
+      <div class="tile-label">Справка</div>
+    </div>
+  </div>
+</body>
+</html>
