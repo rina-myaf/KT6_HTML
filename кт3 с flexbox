@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Windows 8 Metro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #1d1d1d;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .windows-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            background: #1d1d1d;
+        }
+        
+        .tile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 1px;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+        
+        .tile:hover {
+            transform: scale(1.02);
+        }
+        
+        .tile-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .tile-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .tile-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e81123;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .tile-small {
+            width: 160px;
+            height: 160px;
+        }
+        
+        .tile-medium {
+            width: 322px;
+            height: 160px;
+        }
+        
+        .tile-wide {
+            width: 484px;
+            height: 160px;
+        }
+        
+        .tile-large {
+            width: 322px;
+            height: 322px;
+        }
+        
+        .tile-extra-large {
+            width: 646px;
+            height: 322px;
+        }
+        
+        .tile-blue {
+            background: #0078d7;
+        }
+        
+        .tile-green {
+            background: #107c10;
+        }
+        
+        .tile-red {
+            background: #e81123;
+        }
+        
+        .tile-purple {
+            background: #8661c5;
+        }
+        
+        .tile-orange {
+            background: #ff8c00;
+        }
+        
+        .tile-teal {
+            background: #008272;
+        }
+        
+        .tile-magenta {
+            background: #b4009e;
+        }
+        
+        .tile-dark-blue {
+            background: #005a9e;
+        }
+        
+        .tile-dark-green {
+            background: #0a5c0a;
+        }
+        
+        .tile-dark-red {
+            background: #a80000;
+        }
+        
+        .tile-yellow {
+            background: #ffb900;
+        }
+        
+        .tile-gray {
+            background: #333;
+        }
+        
+        .user-tile {
+            background: linear-gradient(135deg, #4c4c4c, #2d2d2d);
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 15px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background: #0078d7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .search-tile {
+            background: #333;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 15px;
+        }
+        
+        .search-icon {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #888;
+        }
+        
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
+        
+        .search-input::placeholder {
+            color: #888;
+        }
+        
+        .info-tile {
+            background: linear-gradient(135deg, #666, #444);
+            justify-content: flex-start;
+            align-items: flex-start;
+            text-align: left;
+            padding: 20px;
+        }
+        
+        .info-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .info-content {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.4;
+        }
+        
+        .datetime-tile {
+            background: linear-gradient(135deg, #333, #222);
+        }
+        
+        .time {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+        
+        .date {
+            font-size: 14px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="windows-container">
+        <div class="tile tile-medium tile-blue">
+            <div class="tile-icon">🖥️</div>
+            <div class="tile-label">Рабочий стол</div>
+        </div>
+        
+        <div class="tile tile-medium tile-green">
+            <div class="tile-icon">📁</div>
+            <div class="tile-label">Проводник</div>
+        </div>
+        
+        <div class="tile tile-wide tile-purple">
+            <div class="tile-icon">🛒</div>
+            <div class="tile-label">Microsoft Store</div>
+            <div class="tile-badge">3</div>
+        </div>
+        
+        <div class="tile tile-small tile-blue">
+            <div class="tile-icon">🌐</div>
+            <div class="tile-label">Internet Explorer</div>
+        </div>
+        
+        <div class="tile tile-extra-large tile-dark-blue">
+            <div class="tile-icon">⚙️</div>
+            <div class="tile-label">Панель управления</div>
+            <div class="info-content">Управление системными настройками</div>
+        </div>
+        
+        <div class="tile tile-medium tile-red">
+            <div class="tile-icon">📧</div>
+            <div class="tile-label">Почта</div>
+            <div class="tile-badge">12</div>
+        </div>
+        
+        <div class="tile tile-small tile-teal">
+            <div class="tile-icon">📅</div>
+            <div class="tile-label">Календарь</div>
+        </div>
+        
+        <div class="tile tile-large tile-magenta">
+            <div class="tile-icon">🎵</div>
+            <div class="tile-label">Музыка</div>
+            <div class="info-content">Groove Music</div>
+        </div>
+        
+        <div class="tile tile-small tile-orange">
+            <div class="tile-icon">🎬</div>
+            <div class="tile-label">Видео</div>
+        </div>
+        
+        <div class="tile tile-medium tile-green">
+            <div class="tile-icon">📰</div>
+            <div class="tile-label">Новости</div>
+        </div>
+        
+        <div class="tile tile-small tile-teal">
+            <div class="tile-icon">☀️</div>
+            <div class="tile-label">Погода</div>
+        </div>
+        
+        <div class="tile tile-wide tile-dark-green">
+            <div class="tile-icon">🗺️</div>
+            <div class="tile-label">Карты</div>
+        </div>
+        
+        <div class="tile tile-medium tile-gray datetime-tile">
+            <div class="time" id="currentTime">15:30</div>
+            <div class="date" id="currentDate">30 декабря 2025</div>
+        </div>
+        
+        <div class="tile tile-small tile-blue">
+            <div class="tile-icon">☁️</div>
+            <div class="tile-label">OneDrive</div>
+        </div>
+        
+        <div class="tile tile-large tile-purple">
+            <div class="tile-icon">📸</div>
+            <div class="tile-label">Фотографии</div>
+        </div>
+        
+        <div class="tile tile-medium tile-dark-red">
+            <div class="tile-icon">🎮</div>
+            <div class="tile-label">Игры</div>
+            <div class="tile-badge">!</div>
+        </div>
+        
+        <div class="tile tile-small tile-yellow">
+            <div class="tile-icon">👥</div>
+            <div class="tile-label">Люди</div>
+        </div>
+        
+        <div class="tile tile-medium tile-dark-blue">
+            <div class="tile-icon">📊</div>
+            <div class="tile-label">Microsoft Office</div>
+        </div>
+        
+        <div class="tile tile-wide tile-gray info-tile">
+            <div class="info-title">Системная информация</div>
+            <div class="info-content">Windows 8.1 Pro<br>Процессор: Intel Core i7</div>
+        </div>
+        
+        <div class="tile tile-small tile-blue">
+            <div class="tile-icon">💬</div>
+            <div class="tile-label">Skype</div>
+        </div>
+        
+        <div class="tile tile-small tile-green">
+            <div class="tile-icon">📝</div>
+            <div class="tile-label">Заметки</div>
+        </div>
+        
+        <div class="tile tile-medium tile-dark-green">
+            <div class="tile-icon">🎯</div>
+            <div class="tile-label">Xbox</div>
+        </div>
+        
+        <div class="tile tile-small tile-red">
+            <div class="tile-icon">❓</div>
+            <div class="tile-label">Справка</div>
+        </div>
+        
+        <div class="tile tile-medium tile-gray user-tile">
+            <div class="user-info">
+                <div class="user-avatar">AS</div>
+                <div>
+                    <div class="user-name">Алексей Сидоров</div>
+                    <div class="tile-label">Администратор</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tile tile-medium tile-gray search-tile">
+            <div class="search-icon">🔍</div>
+            <input type="text" class="search-input" placeholder="Поиск приложений">
+        </div>
+    </div>
+    
+</body>
+</html>
